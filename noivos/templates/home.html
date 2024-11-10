@@ -38,4 +38,27 @@
     </div>
 </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+ const ctx = document.getElementById('myChart');
+
+ new Chart(ctx, {
+ type: 'pie',
+ data: {
+ labels: ['Não reservado', 'Reservado'],
+ datasets: [{
+ label: 'Presentes',
+ data: [5, 6],
+ borderWidth: 1
+ }]
+ },
+ options: {
+ scales: {
+ y: {
+ beginAtZero: true
+ }
+ }
+ }
+ });
+ </script>
 {% endblock %}
