@@ -4,7 +4,7 @@ from .models import Presentes
 
 def home(request):
     if request.method == "GET":
-        presentes = Presentes.objects.all()s
+        presentes = Presentes.objects.all()
         return render(request, 'home.html', {'presentes': presentes})
 
         return render(request, 'home.html')
