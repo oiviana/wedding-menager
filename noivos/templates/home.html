@@ -6,7 +6,8 @@
             <div class="bg-slate-200/20 p-6 rounded-md">
                 <h2 class="text-balance text-xl font-semibold tracking-tight text-gray-900">Crie sua lista de presentes</h2>
                 <br>
-                <form action="" method="POST">
+          
+                <form action="{% url 'home' %}" method="POST" enctype='multipart/form-data'> {% csrf_token %}
                     <label class="mt-4 block text-sm leading-6 text-gray-900">Nome do presente</label>
                     <input type="text"
                            name="nome_presente"
