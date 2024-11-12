@@ -1,5 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from noivos.models import Convidados, Presentes
+from asyncio import constants
+from pyexpat.errors import messages
 
-def home(request):
-    if request.method == "GET":
-        return render(request, 'home.html')
+def convidados(request):
+    token = request.GET.get('token')
+    convidado = Convidados.objects.get(token=token)
+    presentes = Presentes.objects.filter(reservado=False).order_by('-importancia')
+    return render(request, 'convidados.html', {'convidado': convidado, 'presentes': presentes, 'token': token})
+
+def responder_presenca(request):
+    resposta = request.GET.get('resposta')
+    token = request.GET.get('token')
+    convidado = Convidados.objects.get(token=token)
+    if resposta not in ['C', 'R']:
+        messages.add_message(request, constants.ERROR, 'Você deve confirmar ou recusar')
+        return redirect(f'{reverse('convidados')}?token={token}')
+    
+    convidado.status = resposta
+    convidado.save()
+
+    return redirect(f'{reverse('convidados')}?token={token}')

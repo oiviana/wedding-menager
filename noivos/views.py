@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
 from .models import Convidados, Presentes
 
 def home(request):
@@ -47,4 +46,3 @@ def lista_convidados(request):
 
         return redirect('lista_convidados')
     
-# 02:49:00
