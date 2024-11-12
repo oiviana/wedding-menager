@@ -1,3 +1,4 @@
+import secrets
 from django.db import models
 
 # Create your models here.
@@ -28,3 +29,7 @@ class Convidados(models.Model):
         if not self.token:
             self.token = secrets.token_urlsafe(16)
         super(Convidados, self).save(*args, **kwargs)
+
+    @property
+    def link_convite(self):
+        return f'http://127.0.0.0.1:8000/convidados/?token={self.token}'
