@@ -22,3 +22,14 @@ def responder_presenca(request):
     convidado.save()
 
     return redirect(f'{reverse('convidados')}?token={token}')
+
+def reservar_presente(request, id):
+    token = request.GET.get('token')
+
+    convidado = Convidados.objects.get(token=token)
+    presente = Presentes.objects.get(id=id)
+
+    presente.reservado=True
+    presente.reservado_por = convidado
+    presente.save()
+    return redirect(f'{reverse('convidados')}?token={token}')
