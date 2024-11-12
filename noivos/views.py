@@ -27,3 +27,7 @@ def home(request):
         presentes.save()
 
         return redirect('home')
+    
+def lista_convidados(request):
+    if request.method == 'GET':
+        return render(request, 'lista_convidados.html')
