@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .models import Presentes
+from .models import Convidados, Presentes
 
 def home(request):
     if request.method == "GET":
@@ -30,4 +30,20 @@ def home(request):
     
 def lista_convidados(request):
     if request.method == 'GET':
-        return render(request, 'lista_convidados.html')
+        convidados = Convidados.objects.all()
+        return render(request, 'lista_convidados.html', {'convidados': convidados})
+    elif request.method == 'POST':
+        nome_convidado = request.POST.get('nome_convidado')
+        whatsapp = request.POST.get('whatsapp')
+        maximo_acompanhantes = int(request.POST.get('maximo_acompanhantes'))
+
+        convidados = Convidados(
+            nome_convidado=nome_convidado,
+            whatsapp=whatsapp,
+            maximo_acompanhantes=maximo_acompanhantes
+        )
+
+        convidados.save()
+
+        return redirect('lista_convidados')
+    
